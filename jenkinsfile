@@ -17,7 +17,7 @@ pipeline {
             }
         }
         stage('Push') {
-            stepd {
+            steps {
                 sh 'docker push anne07/flask'
             }
         }
