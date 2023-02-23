@@ -1,10 +1,19 @@
 pipeline {
     agent any
 
+    enviromnet {
+        DOCKER = credentials('Docker')
+    }
+
     stages {
         stage('Build') {
             steps {
                 sh 'docker build -t anne07/flask .'
+            }
+        }
+        stage('Login') {
+            steps {
+                echo '$DOCKER | docker login -u anne07 --password-stdin'
             }
         }
     }
