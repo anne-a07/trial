@@ -1,3 +1,11 @@
-syntax
+pipeline {
+    agent any
 
-one two three
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+    }
+}
