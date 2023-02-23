@@ -2,11 +2,6 @@ pipeline {
     agent any
     
     stages {
-        stage('Build') {
-            steps {
-                sh 'docker build -t anne07/flask .'
-            }
-        }
         stage('Login and Push') {
             steps {
                 script {
