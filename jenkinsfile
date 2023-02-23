@@ -16,5 +16,10 @@ pipeline {
                 echo '$DOCKER | docker login -u anne07 --password-stdin'
             }
         }
+        stage('Push') {
+            stepd {
+                sh 'docker push anne07/flask'
+            }
+        }
     }
 }
