@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    enviromnet {
+    enviroment {
         DOCKER = credentials('Docker')
     }
 
