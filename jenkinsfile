@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     stages {
-        stage('Login, Build and Push') {
+        stage('Login, Build and Push') { //login to docker
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'Docker') {
@@ -11,7 +11,7 @@ pipeline {
                 }
             }
         }
-        stage('AWS Commands') {
+        stage('AWS Commands') { //login to aws
             steps {
                 script {
                     withAWS(credentials: 'AWS-cred', region: 'us-east-1') {
@@ -20,7 +20,7 @@ pipeline {
                 }
             }
         }
-        stage('Kubernetes login') {
+        stage('Kubernetes login') { //kube config
             steps {
                 script {
                     withAWS(credentials: 'AWS-cred', region: 'us-east-1') {
@@ -28,7 +28,20 @@ pipeline {
                     }
                 }
             }
-
+        }
+        stage('Create Namespace') { //new namespace
+            steps {
+                script {
+                    withAWS(credentials: 'AWS-cred', region: 'us-east-1') {
+                        try {
+                            sh 'kubectl apply -f manifest.yaml'
+                        } catch (Exception e) {
+                            echo 'Exception occured:' + e.toString()
+                            echo 'Handled the Exception.'
+                        }
+                    }
+                }
+            }
         }
     }
 }
